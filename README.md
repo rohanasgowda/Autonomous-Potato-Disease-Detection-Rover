@@ -257,14 +257,14 @@ Autonomous-Potato-Disease-Detection-Rover
 The complete rover was designed as a lightweight edge-computing platform capable of autonomous field monitoring and real-time disease diagnosis.
 
 <p align="center">
-<img src="images/hardware3.jpg" width="700"/>
+<img src="images/hardware3.jpeg" width="700"/>
 </p>
 
 ### Additional Views
 
 <p align="center">
-<img src="images/hardware1.jpg" width="350"/>
-<img src="images/hardware2.jpg" width="350"/>
+<img src="images/hardware1.jpeg" width="350"/>
+<img src="images/hardware2.jpeg" width="350"/>
 </p>
 
 ---
@@ -282,7 +282,7 @@ The proposed architecture combines edge computing, lightweight deep learning, ba
 # 🔄 Overall Workflow
 
 <p align="center">
-<img src="images/fig6.png" width="800"/>
+<img src="images/fig6.jpeg" width="800"/>
 </p>
 
 The workflow begins with image acquisition on Raspberry Pi and continues through disease classification, severity estimation, backend storage, AI recommendation generation and dashboard visualization.
@@ -353,7 +353,7 @@ The system correctly classifies healthy potato leaves and reports zero disease s
 
 <p align="center">
 
-<img src="images/early (852).jpg" width="250"/>
+<img src="images/early (852).JPG" width="250"/>
 
 ↓
 
@@ -369,7 +369,7 @@ The system detects Early Blight and estimates disease severity before generating
 
 <p align="center">
 
-<img src="images/late_blight (702).jpg" width="250"/>
+<img src="images/late_blight (702).JPG" width="250"/>
 
 ↓
 
