@@ -1,0 +1,67 @@
+
+# Python virtual environments
+**/.venv/
+**/.venv*/
+**/venv/
+**/env/
+
+# Python cache and test artifacts
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+**/.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Local runtime/output folders
+logs/
+captures/
+dataset/
+pytest_tmp/
+*.log
+
+# Project-specific generated files and binaries
+*.zip
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.tif
+*.tiff
+*.db
+*.sqlite
+*.sqlite3
+*.keras
+*.tflite
+*.h5
+*.pb
+*.onnx
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.model
+
+# Large training and inference output folders
+phase4/runs/
+phase4/output/
+phase4/checkpoints/
+phase4/models/
+
+# Environment files
+.env
+.env.*
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.gitignore.txt
+

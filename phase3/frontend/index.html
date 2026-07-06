@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Phase 3 Vendor Inventory</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Plant Disease Rover</p>
+        <h1>Phase 3 Vendor Inventory</h1>
+      </div>
+      <div class="status-pill" id="connectionStatus">Not connected</div>
+    </header>
+
+    <main class="shell">
+      <section class="toolbar" aria-label="Backend connection">
+        <label>
+          Backend URL
+          <input id="backendUrl" value="http://localhost:8000" autocomplete="off" />
+        </label>
+        <label>
+          Username
+          <input id="username" value="admin" autocomplete="username" />
+        </label>
+        <label>
+          Password
+          <input id="password" type="password" value="admin123" autocomplete="current-password" />
+        </label>
+        <button id="loginButton" type="button">Login</button>
+      </section>
+
+      <section class="summary-grid" aria-label="Inventory summary">
+        <div class="metric">
+          <span>Total items</span>
+          <strong id="totalItems">0</strong>
+        </div>
+        <div class="metric">
+          <span>Low stock</span>
+          <strong id="lowStockItems">0</strong>
+        </div>
+        <div class="metric">
+          <span>Expired</span>
+          <strong id="expiredItems">0</strong>
+        </div>
+        <div class="metric">
+          <span>Near expiry</span>
+          <strong id="nearExpiryItems">0</strong>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <div class="panel">
+          <div class="panel-heading">
+            <h2 id="formTitle">Add medicine</h2>
+            <button id="resetFormButton" type="button" class="secondary">Clear</button>
+          </div>
+          <form id="inventoryForm">
+            <input id="itemId" type="hidden" />
+            <label>
+              Medicine name
+              <input id="medicineName" required maxlength="200" placeholder="Mancozeb 75% WP" />
+            </label>
+            <div class="form-row">
+              <label>
+                Stock kg
+                <input id="stockQuantity" required type="number" min="0" step="0.01" />
+              </label>
+              <label>
+                Price/kg
+                <input id="pricePerKg" required type="number" min="0" step="0.01" />
+              </label>
+            </div>
+            <label>
+              Expiry date
+              <input id="expiryDate" required type="date" />
+            </label>
+            <button id="saveButton" type="submit">Save medicine</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading">
+            <h2>CSV import</h2>
+            <button id="downloadSampleButton" type="button" class="secondary">Sample CSV</button>
+          </div>
+          <p class="muted">Use columns: medicine_name, stock_quantity_kg, price_per_kg, expiry_date.</p>
+          <input id="csvFile" type="file" accept=".csv,.tsv,.txt" />
+          <button id="importButton" type="button">Import rows</button>
+          <pre id="importPreview" class="log-box">No file selected.</pre>
+        </div>
+      </section>
+
+      <section class="inventory-section">
+        <div class="panel-heading">
+          <h2>Inventory</h2>
+          <div class="table-actions">
+            <input id="searchInput" placeholder="Search medicine" />
+            <button id="refreshButton" type="button" class="secondary">Refresh</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Stock kg</th>
+                <th>Price/kg</th>
+                <th>Expiry</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="log-section">
+        <h2>Activity</h2>
+        <pre id="activityLog" class="log-box">Ready.</pre>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

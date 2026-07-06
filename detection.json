@@ -1,0 +1,30 @@
+{
+  "session_id": "sess_20260529_185903_ceaa52",
+  "device_id": "rpi_rover_01",
+  "timestamp": "2026-05-29T18:59:03.509271+00:00",
+  "grid_position": {
+    "row_index": 1,
+    "plant_index": 7
+  },
+  "crop": "potato",
+  "disease": "healthy",
+  "confidence": 0.600018,
+  "severity": {
+    "label": "low",
+    "infected_area_percent": 1.42,
+    "method": "opencv_color_threshold_v1"
+  },
+  "image": {
+    "local_path": "dataset/test/potato_late_blight/late_blight (101).JPG",
+    "width": 256,
+    "height": 256
+  },
+  "model": {
+    "name": "plant_disease_mobilenetv3",
+    "version": "0.1.0",
+    "runtime": "tflite"
+  },
+  "runtime": {
+    "inference_time_ms": 10.556
+  }
+}

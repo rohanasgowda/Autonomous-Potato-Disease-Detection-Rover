@@ -1,0 +1,51 @@
+body{
+
+font-family:Arial;
+
+background:#f5f5f5;
+
+padding:30px;
+
+}
+
+#heatmap{
+
+display:grid;
+
+grid-template-columns:repeat(9,70px);
+
+gap:8px;
+
+margin-top:25px;
+
+}
+
+.cell{
+    width:70px;
+    height:70px;
+    border:2px solid #444;
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:34px;
+    cursor:pointer;
+    transition:0.25s;
+}
+
+.cell:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 12px rgba(0,0,0,0.3);
+}
+
+#heatmapContainer{
+    margin-top:20px;
+}
+
+#legend{
+    margin-top:20px;
+    display:flex;
+    gap:20px;
+    font-size:18px;
+    font-weight:bold;
+}

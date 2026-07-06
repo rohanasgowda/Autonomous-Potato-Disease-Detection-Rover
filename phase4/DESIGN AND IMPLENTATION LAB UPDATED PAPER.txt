@@ -1,0 +1,647 @@
+DESIGN AND IMPLENTATION LAB UPDATED
+
+Abstract
+
+Plant diseases significantly affect agricultural productivity by reducing crop yield and quality, making early and accurate disease diagnosis essential for sustainable farming. Conventional disease inspection methods rely heavily on manual observation by agricultural experts, which are labor-intensive, time-consuming, and often unavailable to farmers in remote regions. Recent advances in Artificial Intelligence (AI), Deep Learning (DL), Edge Computing, and Internet of Things (IoT) technologies have enabled the development of intelligent crop monitoring systems capable of performing real-time disease detection directly in agricultural environments.
+
+This paper presents an AI-enabled edge-based potato leaf disease detection and agricultural decision support system deployed on Raspberry Pi 5 using TensorFlow Lite optimized MobileNetV3. The proposed system performs automatic disease classification into Healthy, Early Blight, and Late Blight classes, followed by disease severity estimation through image segmentation techniques. The processed information is transmitted to a FastAPI-based backend where disease records are stored, visualized through an interactive field heatmap, and utilized for generating AI-based crop management recommendations. In addition, the platform incorporates vendor inventory management, disease history tracking, and Telegram-based notifications, thereby providing an integrated smart farming solution instead of a standalone disease classifier.
+
+The proposed MobileNetV3 model was trained using an augmented potato leaf image dataset containing three disease categories. Experimental evaluation on an independent test dataset achieved 97.63% classification accuracy, a weighted F1-score of 97.65%, and an average inference time of 10.99 ms per image, demonstrating the suitability of the proposed framework for real-time edge deployment. The integration of lightweight deep learning, backend analytics, and decision support modules provides an efficient, scalable, and practical solution for precision agriculture.
+
+Keywords— Precision Agriculture, Plant Disease Detection, MobileNetV3, TensorFlow Lite, Raspberry Pi 5, Edge AI, Deep Learning, Severity Estimation, FastAPI, Smart Agriculture.
+
+I. INTRODUCTION
+
+Agriculture continues to play a vital role in ensuring global food security and economic development. However, plant diseases remain one of the major factors responsible for substantial crop losses worldwide, resulting in reduced productivity, poor crop quality, and increased dependence on chemical pesticides. Among various agricultural crops, potato is highly susceptible to fungal diseases such as Early Blight and Late Blight, both of which spread rapidly under favorable environmental conditions and significantly affect crop yield if not detected at an early stage.
+
+Traditional disease identification primarily depends on manual visual inspection performed by experienced agricultural professionals. Although effective under controlled conditions, manual diagnosis suffers from several limitations including subjective interpretation, delayed detection, high labor requirements, and limited accessibility in rural farming regions. Consequently, there is an increasing demand for intelligent automated systems capable of providing rapid, accurate, and real-time disease diagnosis directly in agricultural fields.
+
+Recent developments in Artificial Intelligence (AI), Deep Learning (DL), Computer Vision, Edge Computing, and Internet of Things (IoT) technologies have transformed modern agricultural monitoring systems. Lightweight convolutional neural networks such as MobileNetV3 enable efficient disease classification while maintaining low computational complexity, making them suitable for deployment on resource-constrained edge devices including Raspberry Pi. Edge computing further reduces network dependency by performing inference locally, thereby minimizing latency and improving system reliability in remote agricultural environments.
+
+Several researchers have proposed deep learning-based disease detection systems for different crops. However, many existing approaches focus exclusively on disease classification and fail to provide comprehensive decision support functionalities required for practical agricultural deployment. Features such as disease severity estimation, backend database management, intelligent treatment recommendation, inventory tracking, field-wise visualization, and farmer notification mechanisms are often absent.
+
+To address these limitations, this paper proposes an integrated AI-enabled smart agricultural platform capable of performing disease detection, severity estimation, automated recommendation generation, vendor inventory management, interactive field heatmap visualization, and real-time Telegram notifications within a unified architecture. The proposed framework combines a TensorFlow Lite optimized MobileNetV3 classifier deployed on Raspberry Pi 5 with a FastAPI backend and interactive web dashboard, enabling practical deployment for precision agriculture applications.
+
+The major contributions of this work are summarized as follows:
+
+Development of a lightweight MobileNetV3-based potato leaf disease classification model optimized for Raspberry Pi 5 using TensorFlow Lite.
+Integration of disease severity estimation using image segmentation for quantitative assessment of infected leaf regions.
+Design of a FastAPI backend supporting disease record management, AI-based recommendation generation, vendor inventory tracking, and field-wise heatmap visualization.
+Deployment of a complete edge-enabled agricultural decision support system incorporating Telegram-based farmer notifications.
+Experimental validation demonstrating high classification accuracy (97.63%) and real-time inference performance suitable for practical field applications.
+
+[Insert Figure 1: Overall System Architecture (fig1.png)]
+
+
+
+# **II. RELATED WORK**
+
+The rapid advancement of Artificial Intelligence (AI), Deep Learning (DL), Edge Computing, and Internet of Things (IoT) technologies has significantly transformed modern agricultural monitoring systems. Recent research has focused on developing intelligent crop disease detection frameworks capable of improving disease diagnosis accuracy while minimizing manual intervention. However, most existing solutions concentrate primarily on disease classification and provide limited support for complete agricultural decision-making. This section reviews recent literature related to autonomous crop monitoring, plant disease classification, edge intelligence, and smart agriculture.
+
+Zhao *et al.* [1] proposed a fully autonomous robotic inspection system for detecting strawberry pests and diseases in protected cultivation environments. The system combined autonomous navigation with intelligent image acquisition to automate greenhouse inspection. Although the proposed robotic platform effectively reduced manual monitoring efforts, its application was limited to controlled cultivation environments and did not incorporate disease severity estimation, farmer notification, backend analytics, or inventory management modules required for practical agricultural deployment.
+
+Pratiarso *et al.* [2] presented an aerial deep learning-based disease detection framework for rice fields using unmanned aerial vehicle (UAV) mapping techniques. High-resolution aerial images were processed using convolutional neural networks to identify pest and disease affected regions over large agricultural fields. While the system demonstrated efficient large-scale monitoring capability, it relied heavily on aerial imaging infrastructure and did not provide edge deployment or real-time farmer assistance features suitable for small and medium-scale farms.
+
+Karri *et al.* [3] introduced an intelligent brinjal disease detection system integrated with fertilizer recommendation functionality. Their framework combined deep learning-based disease identification with agricultural advisory generation to assist farmers in selecting appropriate treatments. Although recommendation support was incorporated, the system lacked disease severity estimation, edge-device implementation, interactive visualization, and centralized backend management for continuous crop monitoring.
+
+Cunha *et al.* [4] investigated multispectral image segmentation techniques for agricultural applications by comparing multiple image fusion approaches. Their comprehensive study demonstrated that multispectral imaging significantly improves segmentation performance under varying environmental conditions. However, the requirement for specialized imaging hardware limits practical deployment in low-cost agricultural systems where conventional RGB cameras remain the preferred solution.
+
+Guo *et al.* [5] presented a comprehensive survey on attention mechanisms in computer vision, discussing various attention-based deep learning architectures that enhance feature extraction and classification performance. Although attention mechanisms improve model accuracy for complex vision tasks, many attention-based networks possess higher computational complexity, making them less suitable for deployment on low-power embedded platforms such as Raspberry Pi without significant optimization.
+
+Yeaser *et al.* [6] developed an IoT-based smart agriculture monitoring and automated irrigation system integrating environmental sensors with wireless communication technologies. Their work demonstrated the effectiveness of IoT for improving resource utilization and automated irrigation control. However, disease diagnosis capabilities were not incorporated, limiting the system's ability to perform intelligent crop health monitoring.
+
+Lanjewar *et al.* [7] proposed modified transfer learning frameworks for potato leaf disease identification using lightweight convolutional neural networks. Their comparative study demonstrated that transfer learning significantly improves classification performance while reducing training complexity. Nevertheless, the work primarily focused on classification accuracy and did not extend toward real-time deployment, disease severity estimation, backend integration, or intelligent agricultural decision support.
+
+Paul *et al.* [8] compared multiple deep learning architectures for potato leaf disease detection using Explainable Artificial Intelligence (XAI) techniques. Their research highlighted the importance of model interpretability for improving user confidence in AI-based agricultural systems. While explainability provides valuable insights into model decisions, the proposed framework remained limited to offline disease classification without integration into a complete agricultural monitoring platform.
+
+Sharma *et al.* [9] introduced an edge AI-based IoT platform for real-time plant disease detection using embedded computing devices. The proposed architecture demonstrated the feasibility of deploying lightweight deep learning models on resource-constrained edge hardware for low-latency disease diagnosis. However, additional functionalities such as disease severity estimation, centralized database management, vendor assistance, and field visualization were not addressed.
+
+Kruthi *et al.* [10] designed an AI-powered plant disease detection and remediation framework based on the YOLOv5 object detection model. Their system successfully combined object detection with automated remediation strategies for precision agriculture. Although YOLOv5 provides accurate localization capabilities, the computational requirements remain relatively higher than lightweight classification networks, making deployment on embedded edge devices comparatively challenging.
+
+The above studies clearly demonstrate the growing importance of AI-driven crop disease detection systems. Nevertheless, most existing works emphasize either disease classification, autonomous monitoring, aerial imaging, or IoT-based sensing independently. Very few systems integrate lightweight edge intelligence with disease severity estimation, backend analytics, interactive field visualization, intelligent recommendation generation, vendor inventory management, and real-time farmer notification within a single unified framework.
+
+To address these research gaps, the proposed work develops an integrated AI-enabled agricultural decision support platform that combines TensorFlow Lite optimized MobileNetV3 disease classification, image-based severity estimation, FastAPI backend services, SQLite database management, interactive heatmap visualization, AI-powered treatment recommendations, vendor inventory support, and Telegram notifications on a Raspberry Pi 5 edge computing platform. The proposed architecture provides a practical, scalable, and comprehensive solution suitable for real-world precision agriculture applications.
+
+---
+
+### **Table I. Comparative Analysis of Existing Literature**
+
+| Ref.              | Technique                                                                                                                     | Crop           | Edge Deployment | Severity Estimation | Decision Support | Limitation                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------- | --------------- | ------------------- | ---------------- | ---------------------------------------------------- |
+| [1]               | Autonomous Robotic Inspection                                                                                                 | Strawberry     | ✗               | ✗                   | ✗                | Greenhouse-specific implementation                   |
+| [2]               | UAV + CNN                                                                                                                     | Rice           | ✗               | ✗                   | ✗                | Requires aerial imaging infrastructure               |
+| [3]               | CNN + Fertilizer Recommendation                                                                                               | Brinjal        | ✗               | ✗                   | ✓                | No backend or visualization                          |
+| [4]               | Multispectral Image Segmentation                                                                                              | Multiple Crops | ✗               | ✓                   | ✗                | Requires specialized cameras                         |
+| [5]               | Attention-based Deep Learning                                                                                                 | General Vision | Limited         | ✗                   | ✗                | High computational complexity                        |
+| [6]               | IoT Smart Agriculture                                                                                                         | Multiple Crops | ✓               | ✗                   | Partial          | No disease classification                            |
+| [7]               | Transfer Learning                                                                                                             | Potato         | Limited         | ✗                   | ✗                | Classification only                                  |
+| [8]               | Deep Learning + Explainable AI                                                                                                | Potato         | ✗               | ✗                   | ✗                | Offline analysis only                                |
+| [9]               | Edge AI + IoT                                                                                                                 | Multiple Crops | ✓               | ✗                   | Partial          | No backend management                                |
+| [10]              | YOLOv5                                                                                                                        | Multiple Crops | Limited         | Partial             | Partial          | Higher computational requirements                    |
+| **Proposed Work** | **MobileNetV3 + TensorFlow Lite + FastAPI + Severity Estimation + AI Recommendation + Vendor Inventory + Heatmap + Telegram** | **Potato**     | **✓**           | **✓**               | **✓**            | **Integrated End-to-End Smart Agriculture Platform** |
+
+---
+
+**[Insert Figure 2: Overall System Workflow (fig2.png)]**
+
+**[Insert Figure 3: System Processing Pipeline (fig4.png)]**
+
+---
+
+## **III. PROPOSED METHODOLOGY**
+
+The proposed system is designed as a comprehensive AI-enabled smart agricultural platform capable of performing real-time potato leaf disease detection, disease severity estimation, intelligent recommendation generation, vendor inventory management, interactive field visualization, and automated farmer notification. Unlike conventional disease classification systems, the proposed framework integrates lightweight deep learning, edge computing, backend analytics, and decision support functionalities within a unified architecture suitable for practical agricultural deployment.
+
+The complete system consists of six major functional modules: (i) image acquisition and preprocessing, (ii) MobileNetV3-based disease classification, (iii) disease severity estimation, (iv) FastAPI backend with database management, (v) intelligent decision support modules, and (vi) interactive web dashboard with notification services. The overall workflow enables disease diagnosis directly on a Raspberry Pi 5 while simultaneously synchronizing processed information with the backend server for visualization and long-term monitoring.
+
+**[Insert Figure 4: Overall System Architecture (fig1.png)]**
+
+---
+
+### **A. Image Acquisition and Preprocessing**
+
+The image acquisition module captures potato leaf images using a Raspberry Pi Camera connected to the Raspberry Pi 5. Images may also be uploaded manually through the web interface for disease analysis. Prior to classification, each image undergoes preprocessing operations to improve input consistency and enhance model performance.
+
+The preprocessing stage includes image resizing to **224 × 224 pixels**, RGB color normalization, and automatic augmentation during model training. Augmentation techniques include random horizontal flipping, rotation, zooming, brightness adjustment, and translation, thereby improving model robustness against variations in illumination, viewing angle, and field conditions while reducing overfitting.
+
+---
+
+### **B. MobileNetV3-Based Disease Classification**
+
+Disease classification is performed using **MobileNetV3 Small**, a lightweight convolutional neural network optimized for embedded edge devices. MobileNetV3 combines depthwise separable convolutions, squeeze-and-excitation attention modules, and efficient nonlinear activation functions to achieve high classification accuracy with minimal computational overhead.
+
+Transfer learning is employed by initializing the backbone with ImageNet pretrained weights, after which the final classification layer is fine-tuned using the potato leaf disease dataset. The classifier predicts one of three disease categories:
+
+* Healthy
+* Early Blight
+* Late Blight
+
+The final output layer utilizes the Softmax activation function to compute class probabilities, enabling confident disease prediction suitable for real-time agricultural applications.
+
+---
+
+### **C. Disease Severity Estimation**
+
+Following disease classification, the infected leaf region is quantified through an image segmentation-based severity estimation algorithm. The proposed method isolates diseased regions by combining color-space thresholding, morphological filtering, contour extraction, and pixel-area analysis.
+
+The infected area percentage is calculated using
+
+[
+Severity(%)=\frac{\text{Number of Diseased Pixels}}{\text{Total Leaf Pixels}}\times100
+]
+
+The computed severity value is categorized into multiple infection levels, allowing farmers to assess disease progression and prioritize treatment decisions.
+
+Severity estimation provides additional information beyond disease classification by measuring the extent of infection rather than only identifying the disease category.
+
+**[Insert Figure 5: Severity Estimation Pipeline (fig5.png)]**
+
+---
+
+### **D. FastAPI Backend and Database Management**
+
+The backend is implemented using the **FastAPI** framework to provide efficient communication between the Raspberry Pi edge device, web dashboard, and database. FastAPI REST APIs manage image uploads, disease prediction requests, severity calculation, recommendation retrieval, inventory management, and heatmap generation.
+
+All disease records are stored in a **SQLite** relational database, enabling historical analysis and visualization of disease progression over time.
+
+The database maintains information including:
+
+* Image path
+* Disease class
+* Prediction confidence
+* Severity percentage
+* Timestamp
+* Plant location
+* Recommendation status
+
+The backend architecture supports modular development and enables future migration to cloud-based database systems without major architectural modifications.
+
+**[Insert Figure 6: Backend Architecture (fig6.jpeg)]**
+
+**[Insert Figure 7: Database ER Diagram (fig13.png)]**
+
+---
+
+### **E. AI-Based Recommendation Engine**
+
+To assist farmers in selecting appropriate disease management strategies, an intelligent recommendation module has been incorporated into the system. Based on the predicted disease category and calculated severity percentage, the recommendation engine retrieves suitable management practices from a predefined agricultural knowledge base.
+
+The recommendations include:
+
+* Disease description
+* Possible causes
+* Preventive measures
+* Suggested fungicides
+* Organic treatment methods
+* Irrigation recommendations
+* Crop management guidelines
+
+The recommendation engine enables farmers to obtain immediate actionable insights without consulting external agricultural experts.
+
+---
+
+### **F. Vendor Inventory Management**
+
+An integrated vendor inventory module has been developed to simplify procurement of agricultural products required for disease management. The inventory database stores information regarding fungicides, pesticides, fertilizers, product availability, quantity, pricing, supplier information, and stock status.
+
+Following disease diagnosis, farmers can directly identify recommended agricultural products available within the inventory system, reducing response time for disease treatment.
+
+**[Insert Figure 8: Vendor Inventory Dashboard (fig7a.png)]**
+
+---
+
+### **G. Disease Heatmap Visualization**
+
+The system provides an interactive heatmap for field-level disease visualization. Each plant position is represented as an individual cell whose color intensity corresponds to the estimated disease severity.
+
+The heatmap enables rapid identification of infection hotspots across the field, allowing farmers to perform localized treatment instead of applying pesticides uniformly throughout the entire cultivation area.
+
+Each heatmap cell additionally stores:
+
+* Disease class
+* Prediction confidence
+* Severity percentage
+* Captured image
+* Timestamp
+
+This visualization significantly improves field monitoring efficiency and assists in precision agriculture practices.
+
+**[Insert Figure 9: Disease Heatmap Dashboard (fig9b.png)]**
+
+---
+
+### **H. Telegram Notification Module**
+
+To facilitate remote monitoring, the proposed system integrates Telegram Bot API for automatic notification delivery. Whenever disease severity exceeds predefined threshold values or a new infection is detected, the backend automatically sends alerts containing disease information, severity percentage, and treatment recommendations to registered users.
+
+This feature enables farmers to receive real-time updates without continuously monitoring the web dashboard, thereby improving response time and minimizing crop losses.
+
+---
+
+### **I. Complete System Workflow**
+
+The complete operational sequence of the proposed system is summarized below:
+
+1. Potato leaf image acquisition using Raspberry Pi Camera or manual upload.
+2. Image preprocessing and augmentation.
+3. Disease classification using MobileNetV3.
+4. Disease severity estimation through segmentation.
+5. Storage of prediction results in SQLite database.
+6. Generation of AI-based treatment recommendations.
+7. Vendor inventory matching.
+8. Heatmap update for field visualization.
+9. Telegram notification generation.
+10. Display of results on the interactive web dashboard.
+
+The integration of these modules transforms the proposed framework from a conventional disease classifier into a comprehensive agricultural decision support platform capable of assisting farmers throughout the disease diagnosis and management process.
+
+---
+
+### **Table II. MobileNetV3 Training Configuration**
+
+| Parameter           | Value                            |
+| ------------------- | -------------------------------- |
+| Backbone Network    | MobileNetV3 Small                |
+| Transfer Learning   | ImageNet Pretrained              |
+| Input Image Size    | 224 × 224 × 3                    |
+| Optimizer           | Adam                             |
+| Loss Function       | Sparse Categorical Crossentropy  |
+| Learning Rate       | 0.001                            |
+| Batch Size          | 32                               |
+| Activation Function | Softmax                          |
+| Number of Classes   | 3                                |
+| Training Dataset    | Potato Leaf Images               |
+| Framework           | TensorFlow / Keras               |
+| Deployment Platform | Raspberry Pi 5 (TensorFlow Lite) |
+
+---
+
+**[Insert Figure 10: Hardware Prototype (hardware1.jpeg)]**
+
+**[Insert Figure 11: Hardware Implementation (hardware3.jpeg)]**
+
+---
+
+## **IV. EXPERIMENTAL SETUP**
+
+The proposed AI-enabled smart agricultural platform was experimentally evaluated to analyze its effectiveness in potato leaf disease classification, disease severity estimation, and real-time edge deployment. The evaluation was performed using an augmented potato leaf image dataset containing three disease categories. The trained MobileNetV3 model was deployed on a Raspberry Pi 5 using TensorFlow Lite, while FastAPI was employed as the backend framework for data management, recommendation generation, inventory management, and dashboard visualization.
+
+The experimental setup was designed to evaluate both the machine learning performance and the practical usability of the complete agricultural decision support platform.
+
+---
+
+### **A. Dataset Description**
+
+The dataset used in this work consists of potato leaf images categorized into three disease classes:
+
+* Healthy
+* Early Blight
+* Late Blight
+
+To improve model robustness and generalization capability, image augmentation techniques including rotation, horizontal flipping, translation, zooming, and brightness variation were applied only to the training dataset. Validation and testing datasets remained unaltered to ensure unbiased performance evaluation.
+
+The complete dataset distribution is presented in Table III.
+
+---
+
+### **Table III. Dataset Distribution**
+
+| Dataset     | Early Blight |  Healthy | Late Blight | Total Images |
+| ----------- | -----------: | -------: | ----------: | -----------: |
+| Training    |          700 |      840 |         700 |     **2240** |
+| Validation  |          180 |      151 |         150 |      **481** |
+| Testing     |          150 |       80 |         150 |      **380** |
+| **Overall** |     **1030** | **1071** |    **1000** |     **3101** |
+
+---
+
+**[Insert Figure 12: Representative Dataset Images (Healthy, Early Blight and Late Blight Combined)]**
+
+---
+
+### **B. Hardware Configuration**
+
+The proposed system was implemented using Raspberry Pi 5 as the edge computing platform. A Raspberry Pi Camera was utilized for leaf image acquisition, while TensorFlow Lite was employed to execute the optimized MobileNetV3 model locally. The backend services were hosted using FastAPI, with SQLite serving as the database management system.
+
+---
+
+### **Table IV. Hardware Specifications**
+
+| Component            | Specification                             |
+| -------------------- | ----------------------------------------- |
+| Edge Device          | Raspberry Pi 5                            |
+| Camera               | Raspberry Pi Camera Module                |
+| Processor            | Broadcom BCM2712 Quad-Core ARM Cortex-A76 |
+| RAM                  | 8 GB LPDDR4X                              |
+| Operating System     | Raspberry Pi OS                           |
+| Storage              | microSD Card                              |
+| Backend Framework    | FastAPI                                   |
+| Database             | SQLite                                    |
+| Deployment Framework | TensorFlow Lite                           |
+
+---
+
+### **C. Software Environment**
+
+Model development, training, and evaluation were performed using TensorFlow and Keras within a Python environment. The backend APIs were developed using FastAPI, while the frontend dashboard was implemented using HTML, CSS, and JavaScript.
+
+---
+
+### **Table V. Software Environment**
+
+| Software                | Version / Framework   |
+| ----------------------- | --------------------- |
+| Programming Language    | Python 3.x            |
+| Deep Learning Framework | TensorFlow 2.x        |
+| Model Development       | Keras                 |
+| Backend                 | FastAPI               |
+| Database                | SQLite                |
+| Frontend                | HTML, CSS, JavaScript |
+| Image Processing        | OpenCV                |
+| Scientific Computing    | NumPy                 |
+| Data Visualization      | Matplotlib            |
+
+---
+
+### **D. Model Training Configuration**
+
+Transfer learning was employed using MobileNetV3 Small pretrained on the ImageNet dataset. During training, only the classification head was fine-tuned while leveraging pretrained feature representations to accelerate convergence and improve generalization. The Adam optimizer was selected due to its fast convergence characteristics, and Sparse Categorical Crossentropy was used as the loss function for multi-class classification.
+
+Random data augmentation significantly increased dataset diversity, enabling the model to achieve robust performance under varying field conditions.
+
+---
+
+### **Table VI. Model Training Parameters**
+
+| Parameter           | Value                           |
+| ------------------- | ------------------------------- |
+| Backbone            | MobileNetV3 Small               |
+| Input Size          | 224 × 224 × 3                   |
+| Optimizer           | Adam                            |
+| Loss Function       | Sparse Categorical Crossentropy |
+| Batch Size          | 32                              |
+| Learning Rate       | 0.001                           |
+| Activation Function | Softmax                         |
+| Number of Classes   | 3                               |
+| Transfer Learning   | ImageNet Pretrained             |
+| Deployment          | TensorFlow Lite                 |
+
+---
+
+### **E. Performance Evaluation Metrics**
+
+The proposed model was evaluated using standard multi-class classification metrics commonly employed in deep learning-based image classification.
+
+**Accuracy** measures the percentage of correctly classified samples over the total number of testing samples.
+
+[
+Accuracy=\frac{TP+TN}{TP+TN+FP+FN}
+]
+
+**Precision** indicates the proportion of correctly predicted positive samples among all predicted positive samples.
+
+[
+Precision=\frac{TP}{TP+FP}
+]
+
+**Recall** represents the proportion of actual positive samples correctly identified by the classifier.
+
+[
+Recall=\frac{TP}{TP+FN}
+]
+
+**F1-score** provides a balanced evaluation by combining precision and recall.
+
+[
+F1=\frac{2\times Precision\times Recall}{Precision+Recall}
+]
+
+In addition to classification metrics, the average inference time per image was measured to evaluate real-time deployment capability on edge hardware.
+
+---
+
+### **F. Experimental Workflow**
+
+The complete experimental procedure followed in this study is summarized below:
+
+1. Collection and organization of potato leaf images.
+2. Data augmentation for the training dataset.
+3. MobileNetV3 transfer learning and model training.
+4. Model evaluation using the independent test dataset.
+5. TensorFlow Lite conversion for Raspberry Pi deployment.
+6. Disease severity estimation using image segmentation.
+7. FastAPI backend integration.
+8. Database storage and heatmap visualization.
+9. AI recommendation generation and vendor inventory retrieval.
+10. Telegram notification and dashboard visualization.
+
+The proposed experimental framework evaluates not only classification performance but also the effectiveness of the integrated agricultural decision support platform under practical deployment conditions.
+
+---
+
+**[Insert Figure 13: Complete Experimental Workflow (fig5.png)]**
+
+---
+# **V. RESULTS AND DISCUSSION**
+
+The proposed AI-enabled smart agricultural platform was experimentally evaluated using an independent test dataset containing potato leaf images belonging to three disease categories: Healthy, Early Blight, and Late Blight. The evaluation focused not only on classification accuracy but also on real-time deployment capability, disease severity estimation, backend integration, and intelligent decision support functionalities. The obtained results demonstrate that the proposed framework achieves high classification accuracy while maintaining low computational complexity suitable for edge deployment on Raspberry Pi 5.
+
+---
+
+## **A. Classification Performance**
+
+The MobileNetV3 classifier demonstrated excellent performance across all disease categories. The model achieved an overall classification accuracy of **97.63%** on the independent test dataset, indicating strong generalization capability despite variations introduced through image augmentation during training.
+
+The high classification accuracy can be attributed to the efficient feature extraction capability of MobileNetV3 combined with transfer learning from ImageNet pretrained weights. Furthermore, lightweight depthwise separable convolutions enabled efficient deployment on Raspberry Pi without sacrificing prediction performance.
+
+---
+
+### **Table VII. Class-wise Classification Performance**
+
+| Disease Class        |  Precision |     Recall |   F1-Score | Support |
+| -------------------- | ---------: | ---------: | ---------: | ------: |
+| Early Blight         | **1.0000** | **0.9867** | **0.9933** |     150 |
+| Healthy              | **0.9195** | **1.0000** | **0.9581** |      80 |
+| Late Blight          | **0.9862** | **0.9533** | **0.9695** |     150 |
+| **Weighted Average** | **0.9776** | **0.9763** | **0.9765** | **380** |
+
+The results indicate that the classifier successfully identified all three disease categories with high precision and recall. Early Blight achieved the highest F1-score of **99.33%**, while the Healthy class obtained perfect recall, indicating that all healthy samples were correctly identified. The comparatively lower precision observed for the Healthy class resulted from a small number of Late Blight samples being classified as Healthy.
+
+---
+
+## **B. Training Performance**
+
+The convergence characteristics of the proposed MobileNetV3 model are illustrated through the training and validation accuracy and loss curves.
+
+The training accuracy increased steadily throughout the learning process, while the validation accuracy followed a similar trend, indicating effective feature learning without significant overfitting. Simultaneously, both training and validation loss decreased consistently, demonstrating stable optimization and successful model convergence.
+
+**[Insert Figure 14: Training Accuracy Curve (accuracy_plot.png)]**
+
+**[Insert Figure 15: Training Loss Curve (loss_plot.png)]**
+
+The close agreement between the training and validation curves suggests that the augmentation strategy effectively improved model generalization while minimizing overfitting.
+
+---
+
+## **C. Confusion Matrix Analysis**
+
+The confusion matrix provides a detailed analysis of class-wise prediction performance.
+
+**[Insert Figure 16: Confusion Matrix (confusion matrix.png)]**
+
+The confusion matrix obtained during testing is summarized in Table VIII.
+
+### **Table VIII. Confusion Matrix**
+
+| Actual \ Predicted | Early Blight | Healthy | Late Blight |
+| ------------------ | -----------: | ------: | ----------: |
+| Early Blight       |      **148** |       0 |           2 |
+| Healthy            |            0 |  **80** |           0 |
+| Late Blight        |            0 |       7 |     **143** |
+
+The classifier correctly identified **148** out of **150** Early Blight samples and all **80** Healthy samples. Among the Late Blight images, **143** were correctly classified, while **7** samples were misclassified as Healthy. No Early Blight sample was incorrectly classified as Healthy, demonstrating strong feature discrimination between disease classes.
+
+---
+
+## **D. Precision–Recall Analysis**
+
+To further evaluate classification performance under different decision thresholds, Precision–Recall (PR) curves were generated for all disease categories.
+
+**[Insert Figure 17: Precision–Recall Curve (precision_recall_curve.png)]**
+
+The Average Precision (AP) values obtained for each class are summarized below.
+
+### **Table IX. Average Precision Values**
+
+| Disease Class | Average Precision (AP) |
+| ------------- | ---------------------: |
+| Early Blight  |              **1.000** |
+| Healthy       |              **1.000** |
+| Late Blight   |              **0.998** |
+
+The PR curves remain close to the upper-right corner, indicating excellent classifier confidence and consistent precision across varying recall levels. The slight reduction in the AP value for Late Blight corresponds to the few misclassifications observed in the confusion matrix.
+
+---
+
+## **E. Disease Severity Estimation**
+
+Beyond disease classification, the proposed framework estimates the percentage of infected leaf area using an image segmentation-based severity estimation algorithm. This additional analysis enables quantitative assessment of disease progression and assists farmers in prioritizing treatment strategies.
+
+The segmentation pipeline successfully isolates diseased regions and computes the infected area percentage relative to the total leaf area.
+
+**[Insert Figure 18: Disease Severity Estimation Results (fig5.png)]**
+
+The severity estimation module provides more informative results than simple disease classification by indicating the extent of infection, thereby enabling more effective crop management decisions.
+
+---
+
+## **F. Disease Heatmap Visualization**
+
+To facilitate field-level monitoring, the backend generates an interactive disease heatmap representing the health status of individual plants. Each cell corresponds to a plant location, with color intensity proportional to the estimated disease severity.
+
+**[Insert Figure 19: Disease Heatmap Dashboard (fig9b.png)]**
+
+The heatmap enables rapid identification of disease hotspots, allowing localized treatment instead of uniform pesticide application across the entire cultivation area. This contributes to reduced chemical usage and improved precision agriculture practices.
+
+---
+
+## **G. AI Recommendation and Vendor Inventory**
+
+The proposed decision support framework extends beyond disease diagnosis by providing AI-generated treatment recommendations and vendor inventory assistance.
+
+Following disease detection, the recommendation engine automatically displays:
+
+* Disease description
+* Probable causes
+* Preventive measures
+* Fungicide recommendations
+* Organic treatment options
+* Crop management guidelines
+
+Simultaneously, the vendor inventory module retrieves relevant agricultural products available within the inventory database, enabling farmers to identify suitable treatment materials efficiently.
+
+**[Insert Figure 20: AI Recommendation Module (fig7b.png)]**
+
+**[Insert Figure 21: Vendor Inventory Management (fig7a.png)]**
+
+---
+
+## **H. Overall System Performance**
+
+In addition to high classification accuracy, the proposed platform demonstrates efficient real-time performance suitable for embedded edge deployment.
+
+### **Table X. Overall System Performance**
+
+| Performance Metric        |              Value |
+| ------------------------- | -----------------: |
+| Test Accuracy             |         **97.63%** |
+| Weighted Precision        |         **97.76%** |
+| Weighted Recall           |         **97.63%** |
+| Weighted F1-Score         |         **97.65%** |
+| Macro F1-Score            |         **97.36%** |
+| Mean Inference Time       | **10.99 ms/image** |
+| Number of Disease Classes |              **3** |
+| Edge Deployment Platform  | **Raspberry Pi 5** |
+
+The average inference time of **10.99 ms per image** demonstrates that the optimized TensorFlow Lite implementation is capable of real-time disease diagnosis on Raspberry Pi 5, making the proposed system suitable for practical agricultural deployment.
+
+---
+
+## **I. Discussion**
+
+The experimental results demonstrate that the proposed framework successfully integrates lightweight deep learning, edge computing, backend analytics, and intelligent agricultural decision support into a unified platform. Unlike conventional disease classification systems that terminate after prediction, the proposed solution continues with disease severity estimation, backend storage, AI-based recommendations, vendor inventory retrieval, interactive heatmap generation, and automated Telegram notifications.
+
+The high classification accuracy, low inference latency, and comprehensive backend functionalities collectively establish the proposed framework as an effective and scalable solution for precision agriculture. By combining edge intelligence with decision support capabilities, the system provides farmers with timely, accurate, and actionable information that can significantly improve disease management while reducing crop losses.
+
+---
+
+# **VI. CONCLUSION**
+
+This paper presented an AI-enabled edge-based smart agricultural decision support system for automatic potato leaf disease detection, severity estimation, and intelligent crop management. The proposed framework combines a lightweight MobileNetV3 deep learning model with TensorFlow Lite optimization, enabling efficient deployment on Raspberry Pi 5 for real-time field applications. Unlike conventional disease classification systems, the proposed platform integrates disease severity estimation, FastAPI-based backend services, SQLite database management, interactive heatmap visualization, AI-driven treatment recommendation, vendor inventory management, and Telegram-based notification services into a unified agricultural monitoring ecosystem.
+
+Experimental evaluation performed on an independent potato leaf test dataset demonstrated the effectiveness of the proposed approach. The MobileNetV3 classifier achieved an overall classification accuracy of **97.63%**, with a weighted F1-score of **97.65%** and an average inference time of **10.99 ms per image**, confirming its suitability for resource-constrained edge devices. The disease severity estimation module further enhanced the system by quantifying the infected leaf area, enabling informed treatment prioritization rather than relying solely on disease classification. Additionally, the integrated dashboard, recommendation engine, and inventory management modules provide farmers with actionable insights for timely crop management.
+
+The proposed system demonstrates that combining lightweight deep learning, edge computing, backend analytics, and intelligent decision support can significantly improve practical agricultural disease monitoring. The developed framework is scalable, cost-effective, and suitable for real-world precision agriculture, particularly in regions where continuous internet connectivity and expert consultation may not always be available.
+
+---
+
+# **VII. FUTURE WORK**
+
+Although the proposed framework demonstrates promising performance, several improvements can further enhance its applicability and scalability.
+
+Future work may include:
+
+* Extension of the classification model to support multiple crop species and a larger number of plant diseases.
+* Integration of environmental sensors such as temperature, humidity, and soil moisture for multimodal crop health monitoring.
+* Implementation of Explainable Artificial Intelligence (XAI) techniques such as Grad-CAM to improve model interpretability.
+* Migration from SQLite to cloud-based database systems for large-scale agricultural deployment.
+* Development of a dedicated Android mobile application for remote disease diagnosis and monitoring.
+* Integration of GPS-based field mapping for geospatial disease visualization.
+* Continuous disease progression monitoring using drone and satellite imagery.
+* Incorporation of predictive analytics for disease outbreak forecasting using historical agricultural data.
+* Multi-language recommendation support to improve accessibility for farmers across different regions.
+* Integration with automated precision spraying systems for targeted pesticide application.
+
+These enhancements would transform the proposed framework into a comprehensive smart farming ecosystem capable of supporting large-scale precision agriculture and sustainable crop management.
+
+---
+
+# **ACKNOWLEDGMENT**
+
+The authors would like to express their sincere gratitude to the Department of Electronics and Communication Engineering, JSS Science and Technology University, Mysuru, for providing the facilities, infrastructure, and technical support required to carry out this research. The authors also thank the project guide and faculty members for their valuable guidance, constructive suggestions, and continuous encouragement throughout the development of this work.
+
+---
+
+# **REFERENCES**
+
+> *(Use IEEE numbering exactly as below.)*
+
+[1] S. Zhao, X. Lei, Y. Jiang, W. Gao, Y. Jin, Y. Jiang, and J. Liu, "Design of Robotic Operation System for Fully Autonomous Inspection of Strawberry Pests and Diseases in Facility Ridged Cultivation," *IEEE CYBER Conference*, pp. 297–301, 2024.
+
+[2] A. Pratiarso, A. F. K. M. Wibowo, M. Z. S. Hadi, and M. Yuliana, "Plant Pest Diseases Detection System in Rice Field Based on Aerial Mapping Using Deep Learning," *IEEE International Conference Proceedings*, pp. 737–742, 2025.
+
+[3] P. K. Karri, R. S. S. Marisetti, J. S. S. Allam, A. Machaganti, J. A. Kattoju, and B. S. Nandarapu, "Towards Smarter Farming: A Disease Detection and Fertilizer Recommendation System for Brinjal," in *Information Systems Engineering and Management*, Springer, pp. 265–283, 2025.
+
+[4] N. Cunha, T. Barros, M. Reis, T. Marta, C. Premebida, and U. J. Nunes, "Multispectral Image Segmentation in Agriculture: A Comprehensive Study on Fusion Approaches," in *Lecture Notes in Networks and Systems*, Springer, pp. 311–323, 2024.
+
+[5] M. Guo, T. Xu, J. Liu, Z. Liu, P. Jiang, T. Mu, S. Zhang, R. R. Martin, M. Cheng, and S. Hu, "Attention Mechanisms in Computer Vision: A Survey," *Computational Visual Media*, vol. 8, no. 3, pp. 331–368, 2022.
+
+[6] K. M. A. Yeaser, P. Saha, S. M. R. I. Musa, and M. F. J. Adar, "IoT-Based Smart Agriculture Monitoring and Automated Irrigation System for Efficient Farming," *2024 27th International Conference on Computer and Information Technology (ICCIT)*, Cox's Bazar, Bangladesh, pp. 2600–2605, 2024.
+
+[7] M. G. Lanjewar *et al*., "Modified Transfer Learning Frameworks to Identify Potato Leaf Diseases," *Multimedia Tools and Applications*, vol. 83, Springer, 2024.
+
+[8] H. Paul *et al*., "A Study and Comparison of Deep Learning Based Potato Leaf Disease Detection and Classification Techniques Using Explainable AI," *Multimedia Tools and Applications*, vol. 83, Springer, 2024.
+
+[9] R. Sharma *et al*., "Real-Time Plant Disease Detection Using Edge AI on Plantify's IoT Platform," in *Artificial Intelligence and IoT for Smart Agriculture*, Springer, 2025.
+
+[10] K. S. B. Kruthi *et al*., "Design and Implementation of AI-Powered Plant Disease Detection & Remediation using YOLOv5," in *Proceedings of the IEEE International Conference on Advances in Information Technology (ICAIT)*, IEEE, 2024.
+
+---
+.
+
+
+
+
+
+
+

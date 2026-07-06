@@ -1,0 +1,32 @@
+{
+  "crop": "potato",
+  "disease": "late_blight",
+  "severity_label": "moderate",
+  "recommendations": [
+    {
+      "type": "chemical",
+      "medicine_name": "example fungicide name",
+      "active_ingredient": "example active ingredient",
+      "quantity_kg_per_acre": 1.25,
+      "application_frequency": "Apply once every 7 days for 2 cycles if symptoms continue",
+      "safety_instructions": [
+        "Wear gloves and mask during application",
+        "Avoid application during strong wind",
+        "Follow product label and local agricultural guidance"
+      ]
+    },
+    {
+      "type": "organic",
+      "medicine_name": "example organic treatment",
+      "active_ingredient": "example bio-control ingredient",
+      "quantity_kg_per_acre": 2.0,
+      "application_frequency": "Apply once every 7 to 10 days",
+      "safety_instructions": [
+        "Use clean water for mixing",
+        "Avoid over-application"
+      ]
+    }
+  ],
+  "disclaimer": "This is an AI-generated recommendation for prototype use. Confirm with a local agriculture expert before field application."
+}
+
