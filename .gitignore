@@ -65,3 +65,8 @@ phase4/models/
 Thumbs.db
 .gitignore.txt
 
+# Allow repository screenshots
+!images/
+!images/*.jpg
+!images/*.jpeg
+!images/*.png
