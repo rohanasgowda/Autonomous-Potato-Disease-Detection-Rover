@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚜 Autonomous Potato Disease Detection Rover
+# Autonomous Potato Disease Detection Rover
 
 ### Edge-Based Precision Agriculture Platform for Real-Time Disease Detection, Severity Estimation and Intelligent Crop Management
 
@@ -22,47 +22,47 @@
 
 </p>
 
-**🚀 Lightweight Edge AI • 📷 Computer Vision • 🌱 Precision Agriculture • 🤖 Intelligent Decision Support**
+** Lightweight Edge AI •  Computer Vision •  Precision Agriculture •  Intelligent Decision Support**
 
 </div>
 
 ---
 
-## 📖 Overview
+## Overview
 
 This project presents an **edge-based autonomous agricultural rover** capable of detecting potato leaf diseases in real time using **MobileNetV3** optimized with **TensorFlow Lite** for deployment on **Raspberry Pi 5**.
 
 Unlike conventional disease classification systems, the proposed platform provides a complete agricultural decision support framework by integrating:
 
-- 🌿 Real-time disease detection
-- 📊 Disease severity estimation
-- 🤖 AI-generated treatment recommendation
-- 💊 Vendor inventory support
-- 🗺 Interactive disease heatmap
-- 💾 FastAPI backend with SQLite
-- 📩 Telegram notifications
-- 📈 Dashboard analytics
+- Real-time disease detection
+- Disease severity estimation
+- AI-generated treatment recommendation
+- Vendor inventory support
+- Interactive disease heatmap
+- FastAPI backend with SQLite
+- Telegram notifications
+- Dashboard analytics
 
 The complete system operates entirely on edge hardware while maintaining high prediction accuracy and low inference latency, making it suitable for practical precision agriculture.
 
 ---
 
-# ✨ Key Features
+# Key Features
 
 | Feature | Description |
 |----------|-------------|
-| 🌿 Disease Detection | Healthy, Early Blight and Late Blight classification |
-| 📊 Severity Estimation | Quantifies infected leaf area |
-| ⚡ TensorFlow Lite | Optimized for Raspberry Pi deployment |
-| 🤖 AI Recommendation | Generates treatment suggestions |
-| 📩 Telegram Alerts | Sends instant disease notifications |
-| 🗺 Disease Heatmap | Visual crop health monitoring |
-| 💾 FastAPI Backend | REST API with SQLite database |
-| 📈 Dashboard | Detection history and analytics |
+| Disease Detection | Healthy, Early Blight and Late Blight classification |
+| Severity Estimation | Quantifies infected leaf area |
+| TensorFlow Lite | Optimized for Raspberry Pi deployment |
+| AI Recommendation | Generates treatment suggestions |
+| Telegram Alerts | Sends instant disease notifications |
+| Disease Heatmap | Visual crop health monitoring |
+| FastAPI Backend | REST API with SQLite database |
+| Dashboard | Detection history and analytics |
 
 ---
 
-# 🛠 Technology Stack
+# Technology Stack
 
 | Category | Technologies |
 |-----------|--------------|
@@ -78,24 +78,24 @@ The complete system operates entirely on edge hardware while maintaining high pr
 
 ---
 
-# 📑 Table of Contents
+# Table of Contents
 
-- 📸 Hardware Prototype
-- 🏗 System Architecture
-- 🔄 Workflow
-- 🧠 Deep Learning Model
-- 📊 Experimental Results
-- 🍃 Disease Detection Examples
-- 🗺 Disease Heatmap
-- 💻 Dashboard
-- ⚙ Backend Architecture
-- 🚀 Installation
-- 📁 Repository Structure
-- 🔮 Future Scope
-- 📜 License
+- Hardware Prototype
+- System Architecture
+- Workflow
+- Deep Learning Model
+- Experimental Results
+- Disease Detection Examples
+- Disease Heatmap
+- Dashboard
+- Backend Architecture
+- Installation
+- Repository Structure
+- Future Scope
+- License
 
 
-# 📸 Hardware Prototype
+# Hardware Prototype
 
 The developed rover integrates Raspberry Pi 5, an onboard camera module, edge AI inference, backend communication and precision agriculture support into a compact autonomous platform.
 
@@ -113,7 +113,7 @@ The developed rover integrates Raspberry Pi 5, an onboard camera module, edge AI
 
 ---
 
-# 🏗 Proposed System Architecture
+# Proposed System Architecture
 
 <p align="center">
 
@@ -125,7 +125,7 @@ The proposed architecture integrates edge computing, lightweight deep learning, 
 
 ---
 
-# 🔄 Complete System Workflow
+# Complete System Workflow
 
 <p align="center">
 
@@ -137,7 +137,7 @@ The workflow begins with image acquisition on Raspberry Pi, followed by disease 
 
 ---
 
-# 🧠 Deep Learning Model
+# Deep Learning Model
 
 | Parameter | Value |
 |------------|-------|
@@ -152,7 +152,7 @@ The workflow begins with image acquisition on Raspberry Pi, followed by disease 
 
 ---
 
-# 📊 Model Performance
+# Model Performance
 
 ## Training Accuracy
 
@@ -202,7 +202,7 @@ The Precision–Recall curves remain close to the upper-right corner, confirming
 
 ---
 
-# 📈 Experimental Results
+# Experimental Results
 
 | Metric | Result |
 |---------|--------|
@@ -215,13 +215,13 @@ The Precision–Recall curves remain close to the upper-right corner, confirming
 
 ---
 
-# 🍃 Disease Detection Examples
+# Disease Detection Examples
 
 The proposed framework classifies potato leaves into three categories: **Healthy**, **Early Blight**, and **Late Blight**. Each prediction includes the disease class, confidence score, and severity estimation, enabling accurate field-level disease monitoring.
 
 ---
 
-## 🌿 Healthy Leaf Detection
+## Healthy Leaf Detection
 
 | Input Leaf | Prediction |
 |:----------:|:----------:|
@@ -231,7 +231,7 @@ The proposed framework classifies potato leaves into three categories: **Healthy
 
 ---
 
-## 🍂 Early Blight Detection
+## Early Blight Detection
 
 | Input Leaf | Prediction |
 |:----------:|:----------:|
@@ -241,7 +241,7 @@ The proposed framework classifies potato leaves into three categories: **Healthy
 
 ---
 
-## 🍁 Late Blight Detection
+## Late Blight Detection
 
 | Input Leaf | Prediction |
 |:----------:|:----------:|
@@ -251,7 +251,7 @@ The proposed framework classifies potato leaves into three categories: **Healthy
 
 ---
 
-# 🗺 Disease Heatmap
+# Disease Heatmap
 
 The backend continuously generates a disease heatmap that visualizes disease distribution across the monitored field. Each grid cell represents a plant location, while the color intensity corresponds to the estimated disease severity.
 
@@ -261,14 +261,14 @@ The backend continuously generates a disease heatmap that visualizes disease dis
 
 **Benefits**
 
-- 🌱 Early hotspot identification
-- 💊 Localized pesticide application
-- 📉 Reduced chemical usage
-- 📊 Improved crop health monitoring
+- Early hotspot identification
+- Localized pesticide application
+- Reduced chemical usage
+- Improved crop health monitoring
 
 ---
 
-# 💻 Interactive Dashboard
+# Interactive Dashboard
 
 The FastAPI backend provides an interactive dashboard for monitoring disease detections and backend analytics.
 
@@ -287,7 +287,7 @@ The dashboard enables farmers and researchers to monitor:
 
 ---
 
-# 📑 Project Pipeline
+# Project Pipeline
 
 The following diagrams summarize the overall processing pipeline implemented in the proposed framework.
 
@@ -297,39 +297,39 @@ The following diagrams summarize the overall processing pipeline implemented in 
 
 ---
 
-# 🤖 Intelligent Decision Support
+# Intelligent Decision Support
 
 Unlike conventional plant disease classifiers, the proposed framework extends beyond prediction by providing intelligent agricultural assistance.
 
 ### After every detection, the system automatically generates:
 
-- 📖 Disease Description
-- ⚠️ Probable Causes
-- 🌿 Preventive Measures
-- 💊 Fungicide Recommendations
-- 🌱 Organic Treatment Options
-- 🚜 Crop Management Guidelines
-- 🛒 Vendor Inventory Suggestions
+- Disease Description
+- Probable Causes
+- Preventive Measures
+- Fungicide Recommendations
+- Organic Treatment Options
+- Crop Management Guidelines
+- Vendor Inventory Suggestions
 
 This enables farmers to receive actionable recommendations immediately after disease detection, reducing response time and improving crop management decisions.
 
 ---
 
-# 📩 Telegram Notification System
+# Telegram Notification System
 
 Once a disease is detected, the backend automatically sends a Telegram notification containing:
 
-- 🌿 Disease Name
-- 📊 Confidence Score
-- 📈 Disease Severity
-- 💊 Treatment Recommendation
-- 🕒 Detection Timestamp
+- Disease Name
+- Confidence Score
+- Disease Severity
+- Treatment Recommendation
+- Detection Timestamp
 
 This allows users to receive real-time alerts without continuously monitoring the dashboard.
 
 ---
 
-# ⚙️ Backend Architecture
+# Backend Architecture
 
 The backend is developed using **FastAPI**, providing a lightweight and high-performance REST API framework for seamless communication between the edge device, dashboard, database, and AI recommendation engine.
 
@@ -347,7 +347,7 @@ The backend is developed using **FastAPI**, providing a lightweight and high-per
 
 ---
 
-# 🗄 Database
+# Database
 
 The proposed framework uses **SQLite** for lightweight and efficient local storage.
 
@@ -366,7 +366,7 @@ This enables efficient retrieval of historical disease information for visualiza
 
 ---
 
-# 📂 Repository Structure
+# Repository Structure
 
 ```text
 Autonomous-Potato-Disease-Detection-Rover
@@ -385,7 +385,7 @@ Autonomous-Potato-Disease-Detection-Rover
 
 ---
 
-# 🚀 Installation
+# Installation
 
 ## Clone Repository
 
@@ -471,22 +471,22 @@ http://localhost:8000
 
 ---
 
-# 🌍 Applications
+# Applications
 
 The proposed framework can be used in:
 
-- 🌾 Precision Agriculture
-- 🚜 Smart Farming
-- 🌱 Crop Disease Monitoring
-- 📊 Agricultural Research
-- 🤖 AI-assisted Farming
-- 🌍 Edge AI Applications
-- 🛰 IoT-based Agriculture
-- 🌿 Sustainable Crop Management
+- Precision Agriculture
+- Smart Farming
+- Crop Disease Monitoring
+- Agricultural Research
+- AI-assisted Farming
+- Edge AI Applications
+- IoT-based Agriculture
+- Sustainable Crop Management
 
 ---
 
-# 🔬 Research Contributions
+# Research Contributions
 
 The proposed work integrates multiple technologies into a single end-to-end precision agriculture platform.
 
@@ -506,7 +506,7 @@ Unlike conventional plant disease classifiers, the proposed system provides comp
 
 ---
 
-# 🔮 Future Scope
+# Future Scope
 
 Future enhancements include:
 
@@ -521,7 +521,7 @@ Future enhancements include:
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 **Rohan A S Gowda**
 
@@ -533,7 +533,7 @@ Mysuru, Karnataka, India
 
 ---
 
-# 🙏 Acknowledgements
+# Acknowledgements
 
 Special thanks to:
 
@@ -546,17 +546,17 @@ Special thanks to:
 
 ---
 
-# 📜 License
+# License
 
 This repository is intended for **academic and research purposes**.
 
 ---
 
-# ⭐ Support
+# Support
 
 If you found this project useful,
 
-⭐ **Please consider starring this repository!**
+ **Please consider starring this repository!**
 
 It helps others discover the project and supports future development.
 
@@ -564,9 +564,9 @@ It helps others discover the project and supports future development.
 
 <div align="center">
 
-## 🌱 Building Smarter Agriculture with Edge AI
+## Building Smarter Agriculture with Edge AI
 
-**Made with ❤️ using Raspberry Pi 5, TensorFlow Lite, FastAPI and MobileNetV3**
+**Made with dedication using Raspberry Pi 5, TensorFlow Lite, FastAPI and MobileNetV3**
 
 </div>
 
