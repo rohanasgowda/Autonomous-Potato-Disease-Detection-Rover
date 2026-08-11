@@ -458,7 +458,7 @@ http://localhost:8000
 
 ---
 
-# 📈 Experimental Performance
+# Experimental Performance
 
 | Metric | Result |
 |---------|--------|
